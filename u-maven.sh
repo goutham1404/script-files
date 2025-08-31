@@ -10,7 +10,7 @@ sudo apt update -y
 sudo apt upgrade -y
 
 # Install Java (Maven requires Java, here we use OpenJDK 11)
-sudo apt install -y openjdk-11-jdk
+sudo apt install -y openjdk-17-jdk
 
 # Verify Java
 java -version
