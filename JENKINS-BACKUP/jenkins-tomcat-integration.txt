@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+    tools {
+        maven 'maven'
+    }
+   
+    stages {
+        stage('checkout') {
+            steps {
+                git 'https://github.com/goutham1404/Project-Java-Jenkins.git'
+            }
+        }
+        stage('build') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
+        stage('test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('artifact') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                deploy adapters: [
+                    tomcat9(
+                        credentialsId: '31f841fc-9aef-4506-8db0-735ea7cde297',
+                        
+                        url: 'http://184.72.147.18:8080/'
+                    )
+                ],
+                contextPath: 'NETFLIX',
+                war: 'target/NETFLIX-1.2.2.war'
+            }
+        }
+    }
+}
