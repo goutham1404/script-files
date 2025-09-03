@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+    tools {
+        maven 'maven'
+    }
+    stages {
+        stage('code checkout') {
+            steps {
+                git 'https://github.com/goutham1404/Project-Java-Jenkins.git'
+            }
+        }
+        stage('build') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
+        stage('test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('artifact') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage('s3 upload') {
+            steps {
+                s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: false, dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: 'jenkinsbackupforproject001', excludedFile: '', flatten: false, gzipFiles: false, keepForever: false, managedArtifacts: false, noUploadOnFailure: false, selectedRegion: 'us-east-1', showDirectlyInBrowser: false, sourceFile: 'target/NETFLIX-1.2.2.war', storageClass: 'STANDARD', uploadFromSlave: false, useServerSideEncryption: false]], pluginFailureResultConstraint: 'FAILURE', profileName: 'gout', userMetadata: []
+            }
+        }
+        stage('deploy') {
+            steps {
+                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: '69ebfd3e-8247-4fbd-8e2a-27cde0f26032', path: '', url: 'http://18.212.88.206:8080/'), tomcat9(alternativeDeploymentContext: '', credentialsId: '7eb7461b-c805-4a37-a6b2-f630d5632a48', path: '', url: 'http://23.20.184.35:8080/')], contextPath: 'Netflix', war: 'target/NETFLIX-1.2.2.war'
+            }
+        }
+    }
+}
