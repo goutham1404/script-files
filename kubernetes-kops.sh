@@ -25,19 +25,19 @@ aws s3api create-bucket --bucket deploysscloudanddevopsbyraham007899123mnbvcxz.k
 aws s3api put-bucket-versioning --bucket deploysscloudanddevopsbyraham007899123mnbvcxz.k8s.local --region us-east-1 --versioning-configuration Status=Enabled
 
 #This command sets the KOPS_STATE_STORE environment variable to point to your S3 bucket, telling kops where to store and manage the Kubernetes cluster state.
-export KOPS_STATE_STORE=s3://deploysscloudanddevopsbyraham007899123mnbvcxz.k8s.local
+export KOPS_STATE_STORE=s3://goutkopspracticebucket
 
 # Creates a new Kubernetes cluster configuration with kops:
 # - Cluster name: rahamss.k8s.local
 # - Runs in AWS availability zone: us-east-1a
 # - Control plane: 1 master node (t2.large) using the specified AMI
 # - Worker nodes: 2 nodes (t2.medium) using the specified AMI
-kops create cluster --name rahamss.k8s.local --zones us-east-1a --control-plane-image ami-0360c520857e3138f --control-plane-count=1 --control-plane-size t2.large --image ami-0360c520857e3138f --node-count=2 --node-size t2.medium
+kops create cluster --name gout.k8s.local --zones us-east-1a --control-plane-image ami-0360c520857e3138f --control-plane-count=1 --control-plane-size t2.large --image ami-0360c520857e3138f --node-count=2 --node-size t2.medium
 
 
 # Applies the above configuration and actually provisions the cluster on AWS.
 # The --yes flag confirms the changes, and --admin generates admin credentials.
-kops update cluster --name rahams.k8s.local --yes --admin
+kops update cluster --name gout.k8s.local --yes --admin
 
 
 
