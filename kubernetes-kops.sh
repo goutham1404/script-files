@@ -32,7 +32,7 @@ export KOPS_STATE_STORE=s3://goutkopspracticebucket
 # - Runs in AWS availability zone: us-east-1a
 # - Control plane: 1 master node (t2.large) using the specified AMI
 # - Worker nodes: 2 nodes (t2.medium) using the specified AMI
-kops create cluster --name gout.k8s.local --zones us-east-1a --control-plane-image ami-0360c520857e3138f --control-plane-count=1 --control-plane-size t2.large --image ami-0360c520857e3138f --node-count=2 --node-size t2.medium
+kops create cluster --name gout.k8s.local --zones us-east-1a --control-plane-image ami-0bbdd8c17ed981ef9 --control-plane-count=1 --control-plane-size t2.large --image ami-0bbdd8c17ed981ef9 --node-count=2 --node-size t2.medium
 
 
 # Applies the above configuration and actually provisions the cluster on AWS.
